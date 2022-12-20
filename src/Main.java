@@ -9,20 +9,16 @@ import java.lang.String;
 
     public class Main {
     public static void main(String[] args) {
-        String filePathToBook = args[0];
-        String fileContent = readTheContentsOfTheFile(filePathToBook);
-        int numberOfWordsInTheBook = numberOfWordsInTheString(fileContent);
-        Map characterMap = numberOfTimesAnyLetterIsUsedInAString(fileContent);
-        
-        System.out.printf("There are %s words in the Frankenstein book", numberOfWordsInTheBook);     
+        String filePathToBook = "/home/shiva/workspace/github.com/karts001/bookbot/books/frankenstein.txt";
+        String fileContent = AnalyseData.readTheContentsOfTheFile(filePathToBook);
+
+        int numberOfWordsInTheBook = AnalyseData.numberOfWordsInTheString(fileContent);
+        var characterMap = AnalyseData.numberOfTimesAnyLetterIsUsedInAString(fileContent);
+        Reporting.createFile(numberOfWordsInTheBook, null);  
 
         }
 
-    // public static Path returnPath(String filePath) {
-        
-    //     return path;
-    // }
-
+    public static class AnalyseData {
     public static String readTheContentsOfTheFile(String filePath) {
         Path path = Path.of(filePath);
         String fileContent = "";
@@ -77,7 +73,41 @@ import java.lang.String;
         return charCountMap;
 
     }
+}
+
+    public static class Reporting {
+        public static void createFile (int numberOfWords, Map<Character, Integer> characterMap) {
+            String basePath = new File("").getAbsolutePath();
+            System.out.println(basePath);
+
+            try {
+                FileWriter reportFile = new FileWriter(basePath + "/Book Report.txt");
+                reportFile.write("--Begin report of Frankenstein --\n\n");
+                reportFile.write(String.valueOf(numberOfWords) + " words found in the document\n");
+                reportFile.close();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    // public static File writeDataToFile (File reportFile) {
+    //     String basePath = new File("").getAbsolutePath();
+    //     System.out.println(basePath);
+    //     File reportFile = new File(basePath + "/Book Report.txt");
+    //     try {
+    //         reportFile.createNewFile();
+    //     }
+    //     catch (IOException e) {
+    //         e.printStackTrace();
+    //     }
+        
+    //     return reportFile;
+    // } 
+
     }
+    
+}
 
 
     

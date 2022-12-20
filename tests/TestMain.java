@@ -1,5 +1,7 @@
 package tests;
-import src.Main;
+import src.Main.AnalyseData;
+import src.Main.Reporting;
+
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -10,6 +12,9 @@ import org.junit.Assert;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.*;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 
 public class TestMain {
@@ -20,7 +25,7 @@ public class TestMain {
         String filePathToBook = "/home/shiva/workspace/github.com/karts001/bookbot/books/frankenstein.txt";
 
         // Act
-        var fileContents = Main.readTheContentsOfTheFile(filePathToBook);  
+        var fileContents = AnalyseData.readTheContentsOfTheFile(filePathToBook);  
 
         // Assert
         assertThat(fileContents , instanceOf(String.class));
@@ -32,7 +37,7 @@ public class TestMain {
         String filePathToBook = "/home/shiva/workspace/github.com/karts001/bookbot/books/frankenstein.txt";
 
         // Act
-        var fileContents = Main.readTheContentsOfTheFile(filePathToBook);  
+        var fileContents = AnalyseData.readTheContentsOfTheFile(filePathToBook);  
 
         // Assert
         assertThat(fileContents, CoreMatchers.containsString("Project Gutenberg's Frankenstein, by Mary Wollstonecraft (Godwin) Shelley"));
@@ -48,7 +53,7 @@ public class TestMain {
         System.setOut(ps);
         
         // Act
-        var fileContents = Main.readTheContentsOfTheFile(invalidFilePath);
+        var fileContents = AnalyseData.readTheContentsOfTheFile(invalidFilePath);
         System.out.flush();
         System.setOut(old);
         var consoleOutput = baos.toString();
@@ -68,7 +73,7 @@ public class TestMain {
         System.setOut(ps);
         
         // Act
-        var fileContents = Main.readTheContentsOfTheFile(invalidFilePath);
+        var fileContents = AnalyseData.readTheContentsOfTheFile(invalidFilePath);
         System.out.flush();
         System.setOut(old);
         var consoleOutput = baos.toString();
@@ -84,22 +89,42 @@ public class TestMain {
         String testString = "This is a test string containing 8 words";
 
         // Act
-        var numberOfWordsInTheString = Main.numberOfWordsInTheString(testString);
+        var numberOfWordsInTheString = AnalyseData.numberOfWordsInTheString(testString);
 
         // Assert
         Assert.assertEquals(8, numberOfWordsInTheString);
     }
 
     @Test()
-    public void TestTheCountNumberOfTimesALetterIsUsedInAStringMethod() {
+    public void TestTheCountNumberOfTimesALetterIsUsedInAStringMethodReturnsTheCorrectNumberOfTheLetterAForAGivenString  () {
         // Arrange
         String testString = "This is a test string containing some words";
 
         // Act
-        var characterMap = Main.numberOfTimesAnyLetterIsUsedInAString(testString);
-        Integer expectedNumberOfLetterAs = 2;
+        var characterMap = AnalyseData.numberOfTimesAnyLetterIsUsedInAString(testString);
+        Integer expectedNumberOfLetterA = 2;
+        Integer expectedNumberOfLetterT = 5;
 
         // Assert
-        Assert.assertEquals(expectedNumberOfLetterAs, characterMap.get('a'));
+        Assert.assertEquals(expectedNumberOfLetterA, characterMap.get('a'));
+        Assert.assertEquals(expectedNumberOfLetterT, characterMap.get('t'));
+
+    }
+
+    @Test()
+    public void TestTheWriteToFileMethodCreatesAFileWithExpectedTitleInTheExpectedLocation () {
+        // Arrange
+        int numberOfWords = 5;
+        Map characterMap = null;
+        String basePath = new File("").getAbsolutePath();
+        Path reportPath = Path.of(basePath + "/" + "Book Report.txt");
+
+        // Act
+        Reporting.createFile(numberOfWords, characterMap);
+
+        // Assert
+        boolean fileExists = Files.exists(reportPath);
+        Assert.assertTrue(fileExists);
+
     }
 }
