@@ -112,10 +112,10 @@ public class TestMain {
     }
 
     @Test()
-    public void TestTheWriteToFileMethodCreatesAFileWithExpectedTitleInTheExpectedLocation () {
+    public void TestTheWriteToFileMethodCreatesAFileWithExpectedFileNameInTheExpectedLocation () {
         // Arrange
         int numberOfWords = 5;
-        Map characterMap = null;
+        Map <Character, Integer> characterMap = null;
         String basePath = new File("").getAbsolutePath();
         Path reportPath = Path.of(basePath + "/" + "Book Report.txt");
 
@@ -124,7 +124,8 @@ public class TestMain {
 
         // Assert
         boolean fileExists = Files.exists(reportPath);
-        Assert.assertTrue(fileExists);
+        Assert.assertTrue(fileExists);  
 
     }
+
 }

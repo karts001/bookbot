@@ -14,7 +14,7 @@ import java.lang.String;
 
         int numberOfWordsInTheBook = AnalyseData.numberOfWordsInTheString(fileContent);
         var characterMap = AnalyseData.numberOfTimesAnyLetterIsUsedInAString(fileContent);
-        Reporting.createFile(numberOfWordsInTheBook, null);  
+        Reporting.createFile(numberOfWordsInTheBook, characterMap);  
 
         }
 
@@ -82,29 +82,23 @@ import java.lang.String;
 
             try {
                 FileWriter reportFile = new FileWriter(basePath + "/Book Report.txt");
-                reportFile.write("--Begin report of Frankenstein --\n\n");
-                reportFile.write(String.valueOf(numberOfWords) + " words found in the document\n");
+                reportFile.write("-- Begin report of Frankenstein --\n\n");
+                reportFile.write(String.valueOf(numberOfWords) + " words found in the document\n\n");
+
+                for (Map.Entry<Character, Integer> entry: characterMap.entrySet()) {
+                    Character character = entry.getKey();
+                    int frequency = entry.getValue();
+                    if (Character.isLetter(character)) {
+                    reportFile.write("The " + "'" + character + "' " + "was found " + frequency + " times\n");
+                    }
+                }
+                reportFile.write("-- End of Report --");
                 reportFile.close();
             }
             catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
-    // public static File writeDataToFile (File reportFile) {
-    //     String basePath = new File("").getAbsolutePath();
-    //     System.out.println(basePath);
-    //     File reportFile = new File(basePath + "/Book Report.txt");
-    //     try {
-    //         reportFile.createNewFile();
-    //     }
-    //     catch (IOException e) {
-    //         e.printStackTrace();
-    //     }
-        
-    //     return reportFile;
-    // } 
-
     }
     
 }
