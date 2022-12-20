@@ -29,7 +29,8 @@ import java.lang.String;
         catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
-            }
+            System.out.println("Please provide a valid file path");
+        }
         return fileContent;
     }
 
