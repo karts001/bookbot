@@ -1,16 +1,15 @@
 package tests;
+import src.Main;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
-
-import src.Main;
-
 import org.junit.Assert;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.*;
 
 
 public class TestMain {
@@ -89,5 +88,18 @@ public class TestMain {
 
         // Assert
         Assert.assertEquals(8, numberOfWordsInTheString);
+    }
+
+    @Test()
+    public void TestTheCountNumberOfTimesALetterIsUsedInAStringMethod() {
+        // Arrange
+        String testString = "This is a test string containing some words";
+
+        // Act
+        var characterMap = Main.numberOfTimesAnyLetterIsUsedInAString(testString);
+        Integer expectedNumberOfLetterAs = 2;
+
+        // Assert
+        Assert.assertEquals(expectedNumberOfLetterAs, characterMap.get('a'));
     }
 }
