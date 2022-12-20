@@ -1,3 +1,4 @@
+package src;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -6,7 +7,7 @@ import java.lang.String;
 
     public class Main {
     public static void main(String[] args) {
-        String filePathToBook = "/home/shiva/workspace/github.com/karts001/bookbot/books/frankenstein.txt";
+        String filePathToBook = args[0];
         String fileContent = readTheContentsOfTheFile(filePathToBook);
         int numberOfWordsInTheBook = numberOfWordsInTheString(fileContent);
         

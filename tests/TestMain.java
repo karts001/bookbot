@@ -1,8 +1,12 @@
+package tests;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
+
+import src.Main;
+
 import org.junit.Assert;
 
 import java.io.ByteArrayOutputStream;
@@ -69,11 +73,9 @@ public class TestMain {
         System.out.flush();
         System.setOut(old);
         var consoleOutput = baos.toString();
-        System.out.println(consoleOutput);
 
         // Assert
         Assert.assertEquals("", fileContents);
         Assert.assertTrue(consoleOutput.contains("Is a directory"));
     }
 }
- 
