@@ -78,4 +78,16 @@ public class TestMain {
         Assert.assertEquals("", fileContents);
         Assert.assertTrue(consoleOutput.contains("Is a directory"));
     }
+
+    @Test()
+    public void TestNumberOfWordsMethodReturnsTheCorrectNumberOfWordsInAString() {
+        // Arrange
+        String testString = "This is a test string containing 8 words";
+
+        // Act
+        var numberOfWordsInTheString = Main.numberOfWordsInTheString(testString);
+
+        // Assert
+        Assert.assertEquals(8, numberOfWordsInTheString);
+    }
 }
